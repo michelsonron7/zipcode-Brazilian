@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class AddressStatus {
+	
+	public static final int DEFAUT_ID = 1;
+	
 	@Id
 	private int id;
 	private Status status;
