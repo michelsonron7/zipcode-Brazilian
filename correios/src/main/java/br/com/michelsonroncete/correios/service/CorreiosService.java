@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.michelsonroncete.correios.exception.NoContentException;
+import br.com.michelsonroncete.correios.exception.NotReadyException;
 import br.com.michelsonroncete.correios.model.Address;
 import br.com.michelsonroncete.correios.model.AddressStatus;
 import br.com.michelsonroncete.correios.model.Status;
@@ -24,7 +25,10 @@ public class CorreiosService{
 				.getStatus();
 				
 	}
-	public Address getAddressByZipcode(String zipcode) throws NoContentException {
+	public Address getAddressByZipcode(String zipcode) throws NoContentException, NotReadyException {
+		if (!this.getStatus().equals(Status.READY))
+			throw new NotReadyException();
+		
 		return addressRepository.findById(zipcode)
 				.orElseThrow(NoContentException::new);
 		
