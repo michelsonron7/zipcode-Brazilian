@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.michelsonroncete.correios.exception.NoContentException;
 import br.com.michelsonroncete.correios.model.Address;
 import br.com.michelsonroncete.correios.service.CorreiosService;
 
@@ -20,7 +21,7 @@ public class CorreiosController {
 	}
 
 	@GetMapping("/zipcode/{zipcode}")
-	public Address getAddressByZipcode(@PathVariable("zipcode") String zipcode) {
+	public Address getAddressByZipcode(@PathVariable("zipcode") String zipcode) throws NoContentException {
 		return this.service.getAddressByZipcode(zipcode);
 	}
 }
